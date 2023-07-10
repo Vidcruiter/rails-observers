@@ -4,20 +4,21 @@ module ActiveModel
   class ObserverArray < Array
     attr_reader :model_class
 
-    thread_mattr_accessor :disabled_observers_registry
-    thread_mattr_accessor :disabled_observer_stack_registry
-
-    attr_accessor :disabled_observers, :disabled_observer_stack
-
     def initialize(model_class, *args) # :nodoc:
       @model_class = model_class
-      disabled_observers_registry ||= {}
-      disabled_observers_registry[model_class] ||= Set.new
-      disabled_observer_stack_registry ||= {}
-      disabled_observer_stack_registry[model_class] ||= []
-      @disabled_observers = disabled_observers_registry[model_class]
-      @disabled_observer_stack = disabled_observer_stack_registry[model_class]
       super(*args)
+    end
+
+    def disabled_observers
+      DisabledRegistry.observers(model_class)
+    end
+
+    def disabled_observers=(value)
+      DisabledRegistry.set_observers(model_class, value)
+    end
+
+    def disabled_observer_stack
+      DisabledRegistry.observer_stack(model_class)
     end
 
     # Returns +true+ if the given observer is disabled for the model class,

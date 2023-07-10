@@ -218,5 +218,12 @@ class ObserverArrayTest < ActiveSupport::TestCase
     assert_observer_not_notified Widget, AuditTrail
     assert_observer_notified     Budget, AuditTrail
   end
+
+  test "can disable observers without side effects on other threads" do
+    Thread.new do
+      Widget.observers.disable :audit_trail
+    end.join
+    assert_observer_notified Widget, AuditTrail
+  end
 end
 
