@@ -1,10 +1,9 @@
 source "https://rubygems.org"
 
 # Specify your gem's dependencies in active_record-observers.gemspec
-gem "rails", github: "rails/rails", branch: "5-0-stable"
-gem 'sqlite3', '~> 1.3.6'
+gem "rails", github: "rails/rails", branch: "6-0-stable"
 gem "minitest", "~> 5.8.4"
-gem "activeresource", github: "rails/activeresource"
+gem "activeresource"
 
 gem "mocha", require: false
 
