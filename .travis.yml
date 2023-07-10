@@ -6,6 +6,8 @@ before_install:
   - gem install bundler -v '< 2'
 rvm:
   - 2.6.3
+  - 2.7.7
+  - 3.0.5
   - ruby-head
 gemfile:
   - gemfiles/rails_6_0.gemfile
@@ -13,4 +15,9 @@ gemfile:
   - gemfiles/rails_master.gemfile
   - Gemfile
 matrix:
+  exclude:
+  - rvm: 2.6.3
+    gemfile: gemfiles/rails_master.gemfile
+  - rvm: 2.6.3
+    gemfile: Gemfile
   fast_finish: true
