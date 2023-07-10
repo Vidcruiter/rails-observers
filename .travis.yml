@@ -11,12 +11,7 @@ rvm:
 gemfile:
   - gemfiles/rails_6_0.gemfile
   - gemfiles/rails_6_1.gemfile
-  - gemfiles/rails_master.gemfile
+  - gemfiles/rails_7_0.gemfile
   - Gemfile
 matrix:
-  exclude:
-  - rvm: 2.6.3
-    gemfile: gemfiles/rails_master.gemfile
-  - rvm: 2.6.3
-    gemfile: Gemfile
   fast_finish: true

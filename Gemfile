@@ -4,6 +4,6 @@ source 'https://rubygems.org'
 gemspec
 gem 'activeresource'
 gem 'minitest', '~> 5.8.4'
-gem 'rails', '>= 7'
+gem 'rails'
 
 gem 'mocha', require: false
