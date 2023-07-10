@@ -5,49 +5,12 @@ before_install:
   - gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
   - gem install bundler -v '< 2'
 rvm:
-  - 2.2.10
-  - 2.3.8
-  - 2.4.6
-  - 2.5.5
-  - 2.6.3
+  - 2.7.7
+  - 3.0.5
   - ruby-head
 gemfile:
-  - gemfiles/rails_4_2.gemfile
-  - gemfiles/rails_5_0.gemfile
-  - gemfiles/rails_5_1.gemfile
-  - gemfiles/rails_5_2.gemfile
-  - gemfiles/rails_master.gemfile
+  - gemfiles/rails_6_1.gemfile
+  - gemfiles/rails_7_0.gemfile
   - Gemfile
 matrix:
-  exclude:
-    - rvm: ruby-head
-      gemfile: gemfiles/rails_4_2.gemfile
-    - rvm: 2.6.3
-      gemfile: gemfiles/rails_4_2.gemfile
-    - rvm: 2.6.3
-      gemfile: gemfiles/rails_5_0.gemfile
-    - rvm: 2.6.3
-      gemfile: gemfiles/rails_5_1.gemfile
-    - rvm: 2.6.3
-      gemfile: gemfiles/rails_5_2.gemfile
-    - rvm: 2.5.5
-      gemfile: gemfiles/rails_4_2.gemfile
-    - rvm: 2.5.5
-      gemfile: gemfiles/rails_5_0.gemfile
-    - rvm: 2.2.10
-      gemfile: gemfiles/rails_master.gemfile
-    - rvm: 2.3.8
-      gemfile: gemfiles/rails_master.gemfile
-    - rvm: 2.4.6
-      gemfile: gemfiles/rails_master.gemfile
-  allow_failures:
-    - rvm: ruby-head
-    - gemfile: gemfiles/rails_master.gemfile
   fast_finish: true
-notifications:
-  email: false
-  irc:
-    on_success: change
-    on_failure: always
-    channels:
-      - "irc.freenode.org#rails-contrib"

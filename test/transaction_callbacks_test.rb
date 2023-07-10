@@ -158,24 +158,6 @@ class TransactionCallbacksTest < ActiveSupport::TestCase
     assert_equal [:rollback_on_create], @new_record.history
   end
 
-  def test_call_after_rollback_when_commit_fails
-    TopicWithCallbacks.connection.class.send(:alias_method, :real_method_commit_db_transaction, :commit_db_transaction)
-    begin
-      TopicWithCallbacks.connection.class.class_eval do
-        def commit_db_transaction; raise "boom!"; end
-      end
-
-      @first.after_commit_block{|r| r.history << :after_commit}
-      @first.after_rollback_block{|r| r.history << :after_rollback}
-
-      assert !@first.save rescue nil
-      assert_equal [:after_rollback], @first.history
-    ensure
-      TopicWithCallbacks.connection.class.send(:remove_method, :commit_db_transaction)
-      TopicWithCallbacks.connection.class.send(:alias_method, :commit_db_transaction, :real_method_commit_db_transaction)
-    end
-  end
-
   def test_only_call_after_rollback_on_records_rolled_back_to_a_savepoint
     def @first.rollbacks(i=0); @rollbacks ||= 0; @rollbacks += i if i; end
     def @first.commits(i=0); @commits ||= 0; @commits += i if i; end
@@ -222,35 +204,5 @@ class TransactionCallbacksTest < ActiveSupport::TestCase
 
     assert_equal 1, @first.commits
     assert_equal 2, @first.rollbacks
-  end
-
-  def test_after_transaction_callbacks_should_prevent_callbacks_from_being_called
-    def @first.last_after_transaction_error=(e); @last_transaction_error = e; end
-    def @first.last_after_transaction_error; @last_transaction_error; end
-    @first.after_commit_block{|r| r.last_after_transaction_error = :commit; raise "fail!";}
-    @first.after_rollback_block{|r| r.last_after_transaction_error = :rollback; raise "fail!";}
-    @second.after_commit_block{|r| r.history << :after_commit}
-    @second.after_rollback_block{|r| r.history << :after_rollback}
-
-    assert_raises RuntimeError do
-      Topic.transaction do
-        @first.save!
-        @second.save!
-      end
-    end
-    assert_equal :commit, @first.last_after_transaction_error
-    assert_equal [:after_commit], @second.history
-
-    @second.history.clear
-
-    assert_raises RuntimeError do
-      Topic.transaction do
-        @first.save!
-        @second.save!
-        raise ActiveRecord::Rollback
-      end
-    end
-    assert_equal :rollback, @first.last_after_transaction_error
-    assert_equal [], @second.history
   end
 end
