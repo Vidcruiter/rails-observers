@@ -1,7 +1,7 @@
 module ActiveModel
   class DisabledRegistry
-    thread_mattr_accessor :_observers, default: {}
-    thread_mattr_accessor :_observer_stack, default: {}
+    thread_mattr_accessor :_observers
+    thread_mattr_accessor :_observer_stack
 
     def self.observers(model_name)
       DisabledRegistry._observers ||= {}
