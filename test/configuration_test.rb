@@ -1,3 +1,4 @@
+require "active_support"
 require 'isolation/abstract_unit'
 require 'rails-observers'
 

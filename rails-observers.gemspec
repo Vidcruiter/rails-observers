@@ -14,15 +14,14 @@ Gem::Specification.new do |s|
   s.files         = Dir["LICENSE", "README.md", "lib/**/*"]
   s.require_paths = ["lib"]
 
-  s.required_ruby_version = '>= 2.6'
+  s.required_ruby_version = '>= 3.1'
 
-  s.add_dependency 'activemodel', '>= 6.1'
+  s.add_dependency 'activemodel', '>= 7.1'
 
   s.add_development_dependency 'minitest',       '>= 5'
-  s.add_development_dependency 'railties',       '>= 6.1'
-  s.add_development_dependency 'activerecord',   '>= 6.1'
-  s.add_development_dependency 'actionmailer',   '>= 6.1'
-  s.add_development_dependency 'actionpack',     '>= 6.1'
-  s.add_development_dependency 'activeresource', '>= 6.1'
+  s.add_development_dependency 'railties',       '>= 7.1'
+  s.add_development_dependency 'activerecord',   '>= 7.1'
+  s.add_development_dependency 'actionmailer',   '>= 7.1'
+  s.add_development_dependency 'actionpack',     '>= 7.1'
   s.add_development_dependency 'sqlite3',        '>= 1.3'
 end
