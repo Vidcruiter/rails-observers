@@ -70,7 +70,6 @@ module TestHelpers
         config.active_support.deprecation = :log
         config.action_controller.allow_forgery_protection = false
         config.eager_load = false
-        config.active_record.legacy_connection_handling = true
       RUBY
     end
 
