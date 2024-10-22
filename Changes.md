@@ -15,3 +15,6 @@
 
 ### Fixes
 - Resolved issues with `ActiveModel::DisabledRegistry` and other breakages when running under Rails 7.1.
+
+## [0.2.0] (djpate's fork https://github.com/djpate/rails-observers)
+- Make disabling of observers only affect current thread (thread-safe)
